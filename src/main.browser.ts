@@ -1,4 +1,4 @@
-
+require('theme/app.core.scss');
 /*
  * Providers provided by Angular
  */

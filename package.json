@@ -90,12 +90,10 @@
   "devDependencies": {
     "angular2-hmr": "^0.7.0",
 
-    // Polyfills
     "es6-promise": "^3.1.2",
     "es6-shim": "^0.35.0",
     "es7-reflect-metadata": "^1.6.0",
 
-    // Testing
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
@@ -113,7 +111,6 @@
     "remap-istanbul": "^0.6.3",
     "rimraf": "^2.5.2",
 
-    // Code compilation, formatting and docs
     "codelyzer": "~0.0.21",
 
     "eslint": "^2.12.0",
@@ -126,7 +123,6 @@
     "typescript": "~1.8.9",
     "typings": "~1.0.5",
 
-    // Webpack loaders and deps
     "awesome-typescript-loader": "^1.0.0",
     "raw-loader": "0.5.1",
     "url-loader": "^0.5.7",
@@ -147,12 +143,10 @@
     "http-server": "^0.9.0",
     "resolve-url-loader": "^1.4.3",
 
-    // Webpack plugins
     "html-webpack-plugin": "^2.17.0",
     "copy-webpack-plugin": "^3.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
 
-    // Webpack and deps
     "webpack": "^1.13.1",
     "webpack-merge": "^0.14.0",
     "webpack-md5-hash": "^0.0.5",

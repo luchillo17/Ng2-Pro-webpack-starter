@@ -12,7 +12,7 @@ const helpers = require('./helpers');
  */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {ForkCheckerPlugin} = require('awesome-typescript-loader');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
@@ -120,10 +120,15 @@ module.exports = {
       */
 
       {
-        test: /\.scss$/,
+        test: /^(?!.*app\.core.scss).*\.scss$/,
+        loaders: ['raw', 'sass']
+      },
+      {
+        test: /app\.core\.scss$/,
         loaders: [
+          // ExtractTextPlugin.extract("style", "css?sourceMap"),
           'style',
-          ExtractTextPlugin.extract("style", "css?sourceMap"),
+          'css',
           'resolve-url',
           'sass' +
           '?sourceMap&' +
@@ -249,7 +254,7 @@ module.exports = {
      *
      * See: https://github.com/webpack/extract-text-webpack-plugin#usage-example-with-css
      */
-    new ExtractTextPlugin("styles.css"),
+    // new ExtractTextPlugin("styles.css"),
 
     /*
      * Plugin: HtmlWebpackPlugin
