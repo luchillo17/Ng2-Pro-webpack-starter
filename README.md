@@ -5,12 +5,12 @@ Please consider donating to this humble dev to incentive the development of this
 ### Features list:
 
 - [ ] App shell
-- [ ] Lazy loading modules (probably needs SystemJS)
+- [x] Lazy loading modules (probably needs SystemJS)
   - [ ] Webpack code splitting?
-  - [ ] Angular 2 Router lazy loading?
+  - [x] Angular 2 Router lazy loading?
 - [ ] Offline: Service Worker with precache
-- [ ] HRM (Hot Module Replacement)
-- [ ] Webpack dev server
+- [x] HRM (Hot Module Replacement)
+- [x] Webpack dev server
 - [ ] Installable (Web app manifest)
 - [ ] Testing
 - [ ] Angular Universal?
