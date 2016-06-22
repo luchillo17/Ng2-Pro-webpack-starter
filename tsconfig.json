@@ -1,29 +1,24 @@
 {
   "compilerOptions": {
     "charset": "utf8",
-    "diagnostics": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "newLine": "LF",
-    "noEmitHelpers": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "pretty": true,
-    "removeComments": false,
+    "newLine": "LF",
     "sourceMap": true,
-    "target": "es5",
-    "watch": true
+    "noEmitHelpers": true
   },
   "exclude": [
-    "node_modules",
-    "typings/main",
-    "typings/main.d.ts"
+    "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "resolveGlobs": true,
-    "forkChecker": true
+    "forkChecker": true,
+    "useWebpackText": true
   },
-  "compileOnSave": true,
+  "compileOnSave": false,
   "buildOnSave": false,
   "atom": { "rewriteTsconfig": false }
 }

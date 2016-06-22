@@ -1,22 +1,29 @@
-var helpers = require('./helpers');
-var webpackMerge = require('webpack-merge'); // used to merge webpack configs
-var commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+/**
+ * @author: @AngularClass
+ */
+
+const helpers = require('./helpers');
+const webpackMerge = require('webpack-merge'); // used to merge webpack configs
+const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
  */
-var DefinePlugin = require('webpack/lib/DefinePlugin');
-var DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
-var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-var WebpackMd5Hash = require('webpack-md5-hash');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
+const IgnorePlugin = require('webpack/lib/IgnorePlugin');
+const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
 /**
  * Webpack Constants
  */
-var ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-var HOST = process.env.HOST || 'localhost';
-var PORT = process.env.PORT || 8080;
-var METADATA = webpackMerge(commonConfig.metadata, {
+const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 8080;
+const METADATA = webpackMerge(commonConfig.metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
@@ -121,7 +128,7 @@ module.exports = webpackMerge(commonConfig, {
       'process.env': {
         'ENV': JSON.stringify(METADATA.ENV),
         'NODE_ENV': JSON.stringify(METADATA.ENV),
-        'HMR': METADATA.HMR
+        'HMR': METADATA.HMR,
       }
     }),
 
@@ -150,10 +157,30 @@ module.exports = webpackMerge(commonConfig, {
 
 
       beautify: false, // prod
-      mangle: {screw_ie8: true}, // prod
-      compress: {screw_ie8: true}, // prod
+      mangle: { screw_ie8: true }, // prod
+      compress: { screw_ie8: true}, // prod
       comments: false // prod
     })
+    /**
+     * Plugin: NormalModuleReplacementPlugin
+     * Description: Replace resources that matches resourceRegExp with newResource
+     *
+     * See: http://webpack.github.io/docs/list-of-plugins.html#normalmodulereplacementplugin
+     */
+
+    new NormalModuleReplacementPlugin(
+      /angular2-hmr/,
+      helpers.root('node_modules/angular2-hmr/prod.js')
+    ),
+
+    /**
+     * Plugin: IgnorePlugin
+     * Description: Don’t generate modules for requests matching the provided RegExp.
+     *
+     * See: http://webpack.github.io/docs/list-of-plugins.html#ignoreplugin
+     */
+
+    // new IgnorePlugin(/angular2-hmr/),
 
     /**
      * Plugin: CompressionPlugin

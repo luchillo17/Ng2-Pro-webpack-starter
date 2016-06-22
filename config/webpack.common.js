@@ -1,5 +1,8 @@
+/**
+ * @author: @AngularClass
+ */
+
 const {
-  HotModuleReplacementPlugin,
   optimize: {
     OccurenceOrderPlugin,
     CommonsChunkPlugin
@@ -10,6 +13,7 @@ const helpers = require('./helpers');
 /**
  * Webpack Plugins
  */
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {ForkCheckerPlugin} = require('awesome-typescript-loader');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -20,7 +24,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Angular 2 pro starter With Webpack',
+  title: 'Angular 2 pro starter With Webpack by @luchillo',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
@@ -48,8 +52,8 @@ module.exports = {
   entry: {
 
     polyfills: './src/polyfills.browser.ts',
-    vendor: './src/vendor.browser.ts',
-    main: './src/main.browser.ts'
+    vendor:    './src/vendor.browser.ts',
+    main:      './src/main.browser.ts'
 
   },
 
@@ -65,7 +69,7 @@ module.exports = {
      *
      * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
      */
-    extensions: ['', '.ts', '.js'],
+    extensions: ['', '.ts', '.js', '.json'],
 
     // Make sure root is src
     root: helpers.root('src'),
@@ -99,7 +103,7 @@ module.exports = {
        */
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
+        loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
         exclude: [/\.(spec|e2e)\.ts$/]
       },
 
@@ -110,7 +114,7 @@ module.exports = {
        */
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       },
 
       /**
@@ -119,18 +123,18 @@ module.exports = {
       * See: https://github.com/jtangelder/sass-loader
       */
 
+      // {
+      //   test: /^(?!.*app\.core.scss).*\.scss$/,
+      //   loaders: ['raw', 'sass']
+      // },
       {
-        test: /^(?!.*app\.core.scss).*\.scss$/,
-        loaders: ['raw', 'sass']
-      },
-      {
-        test: /app\.core\.scss$/,
+        test: /\.scss$/,
         loaders: [
           // ExtractTextPlugin.extract("style", "css?sourceMap"),
-          'style',
-          'css',
-          'resolve-url',
-          'sass' +
+          'to-string-loader',
+          'css-loader',
+          'resolve-url-loader',
+          'sass-loader' +
           '?sourceMap&' +
           'outputStyle=expanded&' +
           'root=' + helpers.root('src') + '&' +
@@ -139,26 +143,15 @@ module.exports = {
         ]
       },
       /*
-       * Raw loader support for *.css files
+       * To string and css loader support for *.css files
        * Returns file content as string
        *
+       * See: https://github.com/gajus/to-string-loader
        * See: https://github.com/webpack/css-loader
-       * See: https://github.com/webpack/style-loader
-       */
-      // {
-      //   test: /^(?!.*\.min\.css$).*\.css$/,
-      //   loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap")
-      // },
-
-      /*
-       * Raw loader support for *.css files
-       * Returns file content as string
-       *
-       * See: https://github.com/webpack/raw-loader
        */
       {
         test: /\.css$/,
-        loader: 'raw-loader'
+        loaders: ['to-string-loader', 'css-loader']
       },
 
       /* Raw loader support for *.html
@@ -198,6 +191,7 @@ module.exports = {
       }
 
     ]
+
   },
 
   /*
@@ -206,8 +200,6 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#plugins
    */
   plugins: [
-
-    new HotModuleReplacementPlugin(),
 
     /*
      * Plugin: ForkCheckerPlugin
@@ -229,15 +221,28 @@ module.exports = {
 
     /*
      * Plugin: CommonsChunkPlugin
-     * Description: Generate an extra chunk, which contains common modules shared between entry points..
+     * Description: Shares common code between the pages.
+     * It identifies common modules and put them into a commons chunk.
      *
      * See: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
      * See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
      */
     new CommonsChunkPlugin({
-      name: ['polyfills', 'vendor', 'main'].reverse(),
-      minChunks: Infinity
+      name: ['polyfills', 'vendor'].reverse()
     }),
+
+    /*
+     * Plugin: CopyWebpackPlugin
+     * Description: Copy files and directories in webpack.
+     *
+     * Copies project static assets.
+     *
+     * See: https://www.npmjs.com/package/copy-webpack-plugin
+     */
+    new CopyWebpackPlugin([{
+      from: 'src/assets',
+      to: 'assets'
+    }]),
 
     // new webpack.ProvidePlugin({
     //   // io: 'socket.io-client',
@@ -297,6 +302,7 @@ module.exports = {
 
   /*
    * Include polyfills or mocks for various node stuff
+   * Description: Node configuration
    *
    * See: https://webpack.github.io/docs/configuration.html#node
    */
