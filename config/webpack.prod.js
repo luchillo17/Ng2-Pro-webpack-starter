@@ -156,11 +156,12 @@ module.exports = webpackMerge(commonConfig, {
       // comments: true, //debug
 
 
-      beautify: false, // prod
-      mangle: { screw_ie8: true }, // prod
-      compress: { screw_ie8: true}, // prod
-      comments: false // prod
-    })
+      beautify: false, //prod
+      mangle: { screw_ie8 : true }, //prod
+      compress: { screw_ie8: true }, //prod
+      comments: false //prod
+    }),
+
     /**
      * Plugin: NormalModuleReplacementPlugin
      * Description: Replace resources that matches resourceRegExp with newResource
@@ -170,7 +171,7 @@ module.exports = webpackMerge(commonConfig, {
 
     new NormalModuleReplacementPlugin(
       /angular2-hmr/,
-      helpers.root('node_modules/angular2-hmr/prod.js')
+      helpers.root('config/modules/angular2-hmr-prod.js')
     ),
 
     /**

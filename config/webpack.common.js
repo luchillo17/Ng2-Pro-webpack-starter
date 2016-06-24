@@ -19,6 +19,7 @@ const {ForkCheckerPlugin} = require('awesome-typescript-loader');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const HtmlElementsPlugin = require('./html-elements-plugin');
 
 /*
  * Webpack Constants
@@ -87,13 +88,47 @@ module.exports = {
   module: {
 
     /*
-   * An array of automatically applied loaders.
-   *
-   * IMPORTANT: The loaders here are resolved relative to the resource which they are applied to.
-   * This means they are not resolved relative to the configuration file.
-   *
-   * See: http://webpack.github.io/docs/configuration.html#module-loaders
-   */
+     * An array of applied pre and post loaders.
+     *
+     * See: http://webpack.github.io/docs/configuration.html#module-preloaders-module-postloaders
+     */
+    preLoaders: [
+
+      /*
+       * Tslint loader support for *.ts files
+       *
+       * See: https://github.com/wbuchwalter/tslint-loader
+       */
+       // { test: /\.ts$/, loader: 'tslint-loader', exclude: [ helpers.root('node_modules') ] },
+
+      /*
+       * Source map loader support for *.js files
+       * Extracts SourceMaps for source files that as added as sourceMappingURL comment.
+       *
+       * See: https://github.com/webpack/source-map-loader
+       */
+      {
+        test: /\.js$/,
+        loader: 'source-map-loader',
+        exclude: [
+          // these packages have problems with their sourcemaps
+          helpers.root('node_modules/rxjs'),
+          helpers.root('node_modules/@angular'),
+          helpers.root('node_modules/@ngrx'),
+          helpers.root('node_modules/@angular2-material'),
+        ]
+      }
+
+    ],
+
+    /*
+     * An array of automatically applied loaders.
+     *
+     * IMPORTANT: The loaders here are resolved relative to the resource which they are applied to.
+     * This means they are not resolved relative to the configuration file.
+     *
+     * See: http://webpack.github.io/docs/configuration.html#module-loaders
+     */
     loaders: [
 
       /*
@@ -272,6 +307,32 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       chunksSortMode: 'dependency'
+    }),
+
+    /*
+     * Plugin: HtmlHeadConfigPlugin
+     * Description: Generate html tags based on javascript maps.
+     *
+     * If a publicPath is set in the webpack output configuration, it will be automatically added to
+     * href attributes, you can disable that by adding a "=href": false property.
+     * You can also enable it to other attribute by settings "=attName": true.
+     *
+     * The configuration supplied is map between a location (key) and an element definition object (value)
+     * The location (key) is then exported to the template under then htmlElements property in webpack configuration.
+     *
+     * Example:
+     *  Adding this plugin configuration
+     *  new HtmlElementsPlugin({
+     *    headTags: { ... }
+     *  })
+     *
+     *  Means we can use it in the template like this:
+     *  <%= webpackConfig.htmlElements.headTags %>
+     *
+     * Dependencies: HtmlWebpackPlugin
+     */
+    new HtmlElementsPlugin({
+      headTags: require('./head-config.common')
     }),
 
     /**

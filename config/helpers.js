@@ -53,7 +53,6 @@ function checkNodeImport(context, request, cb) {
   cb();
 }
 
-
 exports.hasProcessFlag = hasProcessFlag;
 exports.isWebpackDevServer = isWebpackDevServer;
 exports.root = root;
