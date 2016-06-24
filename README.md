@@ -21,11 +21,12 @@ Please consider donating to this humble dev to incentive the development of this
 
 ## Speed tests
 
-This are values taken while developing the features that speed the time for meaningful firs render for the user.
+This are values taken while developing the features that speed the time for meaningful firs render for the user with both with dev builds and prod builds (dev builds are slower due to adding the HMR logic and lacking compression).
 
-| #  | App-shell | Lazy loading | Angular Universal | Service Worker | Static Template Compilation | Time  |
-| -- | :-------: | :----------: | :---------------: | :------------: | :-------------------------: | :---: |
-| 1  |     x     |      x       |                   |                |                             | 1.82s |
+| #  | App-shell | Lazy loading | Angular Universal | Service Worker | Static Template Compilation | Dev Time  | Prod Time |
+| -- | :-------: | :----------: | :---------------: | :------------: | :-------------------------: | :-------: | :-------: |
+| 1  |     x     |      x       |                   |                |                             |   1.85s   |   1.41s   |
+| 1  |     x     |      x       |                   |  offline plug  |                             |   1.62s   |   1.28s   |
 
 ## Resources
 
