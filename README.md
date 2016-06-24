@@ -19,6 +19,14 @@ Please consider donating to this humble dev to incentive the development of this
 - [ ] Testing
 - [ ] Static template compilation (wait until Ng2 rc3 release)
 
+## Speed tests
+
+This are values taken while developing the features that speed the time for meaningful firs render for the user.
+
+| #  | App-shell | Lazy loading | Angular Universal | Service Worker | Static Template Compilation | Time  |
+| -- | :-------: | :----------: | :---------------: | :------------: | :-------------------------: | :---: |
+| 1  |     x     |      x       |                   |                |                             | 1.82s |
+
 ## Resources
 
 - [Progressive Web Apps](https://www.youtube.com/watch?v=wLWVASD0dvU)
