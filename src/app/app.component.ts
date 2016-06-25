@@ -59,7 +59,7 @@ export class App {
 
   constructor(
     public appState: AppState) {
-
+      require('offline-plugin/runtime').install();
   }
 
   ngOnInit() {
