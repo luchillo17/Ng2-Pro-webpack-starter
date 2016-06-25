@@ -68,6 +68,9 @@ interface WebpackRequire {
   context(file: string, flag?: boolean, exp?: RegExp): any;
 }
 
+interface SWNavigator {
+  serviceWorker: any
+}
 
 interface ErrorStackTraceLimit {
   stackTraceLimit: number;
@@ -81,3 +84,4 @@ interface ErrorConstructor extends ErrorStackTraceLimit {}
 interface NodeRequireFunction extends Es6PromiseLoader  {}
 interface NodeModule extends WebpackModule {}
 interface Global extends GlobalEnvironment  {}
+interface Navigator extends SWNavigator  {}

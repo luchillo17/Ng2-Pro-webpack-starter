@@ -23,10 +23,14 @@ Please consider donating to this humble dev to incentive the development of this
 
 This are values taken while developing the features that speed the time for meaningful firs render for the user with both with dev builds and prod builds (dev builds are slower due to adding the HMR logic and lacking compression).
 
-| #  | App-shell | Lazy loading | Angular Universal | Service Worker | Static Template Compilation | Dev Time  | Prod Time |
-| -- | :-------: | :----------: | :---------------: | :------------: | :-------------------------: | :-------: | :-------: |
-| 1  |     x     |      x       |                   |                |                             |   1.85s   |   1.41s   |
-| 1  |     x     |      x       |                   |  offline plug  |                             |   1.62s   |   1.28s   |
+Note: Please take in account that this speed tests are from localhost with the webpack-dev-server, no throttling connection (except when offline) and that this times aren't an average, those are the best times, basically the lowest time they took (as far as a few reloads i made shown) to show the significant bit, which is the root page with an image.
+
+| #  | App-shell | Lazy loading | Angular Universal | Service Worker | Static Template Compilation | Dev Time  | Prod Time | Offline |
+| -- | :-------: | :----------: | :---------------: | :------------: | :-------------------------: | :-------: | :-------: | :-----: |
+| 1  |     x     |      x       |                   |                |                             |   1.85s   |   1.41s   | broken  |
+| 2  |     x     |      x       |                   | offline plugin |                             |   1.62s   |   1.28s   |  1.09s  |
+| 2  |     x     |      x       |                   | sw precache webpack plugin |                             | Not meassurable, the file isn't served by webpack-dev-server |   1.26s   |  1.13s  |
+
 
 ## Resources
 
