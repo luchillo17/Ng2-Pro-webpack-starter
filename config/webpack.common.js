@@ -20,6 +20,7 @@ const {ForkCheckerPlugin} = require('awesome-typescript-loader');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlElementsPlugin = require('./html-elements-plugin');
+const OfflinePlugin = require('offline-plugin');
 
 /*
  * Webpack Constants
@@ -334,6 +335,8 @@ module.exports = {
     new HtmlElementsPlugin({
       headTags: require('./head-config.common')
     }),
+
+    new OfflinePlugin(),
 
     /**
      * Plugin: WebpackBuildNotifierPlugin
