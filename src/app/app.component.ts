@@ -58,9 +58,8 @@ export class App {
   url = 'https://twitter.com/AngularClass';
 
   constructor(
-    public appState: AppState) {
-      require('offline-plugin/runtime').install();
-  }
+    public appState: AppState
+  ) {}
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
