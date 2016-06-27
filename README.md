@@ -16,6 +16,8 @@ Please consider donating to this humble dev to incentive the development of this
 - [x] Webpack dev server
 - [x] HRM (Hot Module Replacement)
 - [ ] Installable (Web app manifest)
+  - [x] Android
+  - [-] IOS partial lacks testing in actual devise the standalone feature.
 - [ ] Testing
 - [ ] Static template compilation (wait until Ng2 rc4 release for fix to: [#876](https://github.com/mgechev/angular2-seed/pull/876), [#9540](https://github.com/angular/angular/issues/9540), [#9645](https://github.com/angular/angular/issues/9645))
 

@@ -2,8 +2,9 @@
  "name": "Ng2ProStarter",
  "short_name": "Ng2Pro",
  "background_color": "#888",
+ "display": "fullscreen",
+ "start_url": "/index.html",
  "description": "Ng2WebpackProStarter integrates the latest technologies of PWA's.",
- "display": "standalone",
  "icons": [
   {
    "src": "/assets/icon/android-icon-36x36.png",
@@ -41,5 +42,17 @@
    "type": "image/png",
    "density": 4.0
   }
- ]
+ ],
+ "permissions": {
+   "backgroundservice": {
+     "description": "Required for background sync"
+   },
+   "desktop-notification": {
+     "description": "Required for notifications on server events"
+   }
+ },
+ "developer": {
+   "name": "Carlos Esteban Lopez Jaramillo",
+   "url": "https://github.com/Luchillo"
+ }
 }
