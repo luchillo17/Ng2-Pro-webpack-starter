@@ -17,7 +17,7 @@ Please consider donating to this humble dev to incentive the development of this
 - [x] HRM (Hot Module Replacement)
 - [ ] Installable (Web app manifest)
 - [ ] Testing
-- [ ] Static template compilation (wait until Ng2 rc3 release)
+- [ ] Static template compilation (wait until Ng2 rc4 release for fix to: [#876](https://github.com/mgechev/angular2-seed/pull/876), [#9540](https://github.com/angular/angular/issues/9540), [#9645](https://github.com/angular/angular/issues/9645))
 
 ## Speed tests
 
