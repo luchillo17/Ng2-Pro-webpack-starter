@@ -10,14 +10,14 @@ Please consider donating to this humble dev to incentive the development of this
 - [x] App shell (is the home page)
 - [ ] Angular Universal?
 - [x] Lazy loading modules (probably needs SystemJS)
-  - [x] Webpack code splitting? (es6-promise-loader)
-  - [x] Angular 2 Router lazy loading? (Needs Angular 2 router v3)
-- [ ] Offline: Service Worker with precache
+  - [x] Webpack code splitting (es6-promise-loader)
+  - [x] Angular 2 Router lazy loading (Needs Angular 2 router v3)
+- [x] Offline: Service Worker with precache, lacks update management, relate to: [offline-plugin#install-options](https://github.com/NekR/offline-plugin#install-options), [#78-\[Feat\] Callback for update](https://github.com/NekR/offline-plugin/issues/78#issuecomment-228763974)
 - [x] Webpack dev server
 - [x] HRM (Hot Module Replacement)
 - [ ] Installable (Web app manifest)
   - [x] Android
-  - [-] IOS partial lacks testing in actual devise the standalone feature.
+  - [-] IOS partial, Safari uses the meta tags, retate to: [Safari metatags](https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html), [Safari application short name](http://stackoverflow.com/questions/3400741/setting-home-screen-icon-name-for-mobile-safari)
 - [ ] Testing
 - [ ] Static template compilation (wait until Ng2 rc4 release for fix to: [#876](https://github.com/mgechev/angular2-seed/pull/876), [#9540](https://github.com/angular/angular/issues/9540), [#9645](https://github.com/angular/angular/issues/9645))
 
@@ -31,7 +31,7 @@ Note: Please take in account that this speed tests are from localhost with the w
 | -- | :-------: | :----------: | :---------------: | :------------: | :-------------------------: | :-------: | :-------: | :-----: |
 | 1  |     x     |      x       |                   |                |                             |   1.85s   |   1.41s   | broken  |
 | 2  |     x     |      x       |                   | offline plugin |                             |   1.62s   |   1.28s   |  1.09s  |
-| 2  |     x     |      x       |                   | sw precache webpack plugin |                             | Not meassurable, the file isn't served by webpack-dev-server |   1.26s   |  1.13s  |
+| 3  |     x     |      x       |                   | sw precache webpack plugin |                             | Not meassurable, the file isn't served by webpack-dev-server |   1.26s   |  1.13s  |
 
 ## Resources
 

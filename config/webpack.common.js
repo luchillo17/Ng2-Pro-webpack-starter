@@ -27,6 +27,7 @@ const OfflinePlugin = require('offline-plugin');
  */
 const METADATA = {
   title: 'Angular 2 pro starter With Webpack by @luchillo',
+  name: 'Ng2Pro',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
