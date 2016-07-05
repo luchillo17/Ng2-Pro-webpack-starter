@@ -88,6 +88,7 @@ interface WebpackRequire {
 interface WebpackContext extends WebpackRequire {
     keys(): string[];
 }
+
 interface SWNavigator {
   serviceWorker: any
 }
