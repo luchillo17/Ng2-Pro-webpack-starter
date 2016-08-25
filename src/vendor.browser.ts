@@ -13,8 +13,7 @@ import '@angular/http';
 import '@angular/router';
 
 // AngularClass
-import '@angularclass/webpack-toolkit';
-import '@angularclass/request-idle-callback';
+import '@angularclass/hmr';
 
 // RxJS
 import 'rxjs/add/operator/map';
@@ -28,6 +27,5 @@ if ('production' === ENV) {
 
 } else {
   // Development
-  require('angular2-hmr');
 
 }
