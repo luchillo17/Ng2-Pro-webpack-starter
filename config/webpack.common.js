@@ -149,11 +149,6 @@ module.exports = {
       *
       * See: https://github.com/jtangelder/sass-loader
       */
-
-      // {
-      //   test: /^(?!.*app\.core.scss).*\.scss$/,
-      //   loaders: ['raw', 'sass']
-      // },
       {
         test: /\.scss$/,
         loaders: [
@@ -215,13 +210,6 @@ module.exports = {
       {
         test: /\.(ttf|eot|otf|svg)(\?v=\d+\.\d+\.\d+)?$/,
         loader: "file-loader?name=fonts/[name].[ext]"
-      },
-
-      /* File loader for supporting images, for example, in CSS files.
-      */
-      {
-        test: /\.(jpg|png|gif)$/,
-        loader: 'file'
       }
     ]
 
