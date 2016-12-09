@@ -13,19 +13,12 @@ import { XLarge } from './x-large';
   providers: [
     Title
   ],
-  // We need to tell Angular's compiler which directives are in our template.
-  // Doing so will allow Angular to attach our behavior to an element
-  directives: [
-    XLarge
-  ],
-  // We need to tell Angular's compiler which custom pipes are in our template.
-  pipes: [ ],
   // Our list of styles in our component. We may add more to compose many styles together
   styleUrls: [ './home.component.scss' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   templateUrl: './home.component.html'
 })
-export class Home {
+export class HomeComponent {
   // Set our default values
   localState = { value: '' };
   // TypeScript public modifiers
@@ -38,10 +31,9 @@ export class Home {
     // this.title.getData().subscribe(data => this.data = data);
   }
 
-  submitState(value) {
+  submitState(value: string) {
     console.log('submitState', value);
     this.appState.set('value', value);
     this.localState.value = '';
   }
-
 }

@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HmrState } from 'angular2-hmr';
+
+export type InternalStateType = {
+  [key: string]: any
+};
 
 @Injectable()
 export class AppState {
-  _state = { };
+  _state: InternalStateType = { };
 
   constructor() {
 
@@ -31,7 +34,7 @@ export class AppState {
   }
 
 
-  _clone(object) {
+  private _clone(object: InternalStateType) {
     // simple object clone
     return JSON.parse(JSON.stringify( object ));
   }

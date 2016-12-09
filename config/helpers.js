@@ -24,7 +24,7 @@ function hasProcessFlag(flag) {
  * @return {boolean} - true if serving with 'webpack-dev-server', false otherwise
  */
 function isWebpackDevServer() {
-  return process.argv[1] && Boolean(/webpack-dev-server$/.exec(process.argv[1]));
+  return process.argv[1] && !! (/webpack-dev-server/.exec(process.argv[1]));
 }
 
 /**
@@ -38,22 +38,6 @@ function root(args) {
   return path.join.apply(path, [ROOT].concat(args));
 }
 
-/**
- * Check if a path import match the node type of import
- *
- * @param {any} context The context of the import
- * @param {string} request The import string
- * @param {function} cb callback
-*/
-function checkNodeImport(context, request, cb) {
-  if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
-    cb(null, 'commonjs ' + request);
-    return;
-  }
-  cb();
-}
-
 exports.hasProcessFlag = hasProcessFlag;
 exports.isWebpackDevServer = isWebpackDevServer;
 exports.root = root;
-exports.checkNodeImport = checkNodeImport;
