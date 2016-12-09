@@ -124,6 +124,7 @@ module.exports = function (options) {
          * Scss loader support for *.scss files.
          *
          * See: https://github.com/jtangelder/sass-loader
+         * See issue: https://github.com/webpack/webpack/issues/3060#issuecomment-249382018
          */
         {
           test: /\.scss$/,
@@ -134,7 +135,7 @@ module.exports = function (options) {
             'resolve-url-loader',
             {
               loader: "sass-loader",
-              query: {
+              options: {
                 includePaths: [
                   helpers.root('src'),
                   helpers.root('node_modules'),
