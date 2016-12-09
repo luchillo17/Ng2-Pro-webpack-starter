@@ -122,8 +122,11 @@ module.exports = function (options) {
       new LoaderOptionsPlugin({
         debug: true,
         options: {
-
-        }
+          context: helpers.root('src'),
+          output: {
+            path: helpers.root('dist'),
+          },
+        },
       }),
 
     ],

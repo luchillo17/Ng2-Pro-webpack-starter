@@ -243,6 +243,10 @@ module.exports = function (env) {
         minimize: true,
         debug: false,
         options: {
+          context: helpers.root('src'),
+          output: {
+            path: helpers.root('dist'),
+          },
 
           /**
            * Html loader advanced options

@@ -2,11 +2,6 @@
  * @author: @AngularClass
  */
 
-const {
-  optimize: {
-    CommonsChunkPlugin
-  }
-} = require('webpack');
 const helpers = require('./helpers');
 
 /**
@@ -125,11 +120,38 @@ module.exports = function (options) {
           test: /\.json$/,
           use: 'json-loader'
         },
+        /**
+         * Scss loader support for *.scss files.
+         *
+         * See: https://github.com/jtangelder/sass-loader
+         */
+        {
+          test: /\.scss$/,
+          use: [
+            // ExtractTextPlugin.extract("style", "css?sourceMap"),
+            'to-string-loader',
+            'css-loader',
+            'resolve-url-loader',
+            {
+              loader: "sass-loader",
+              query: {
+                includePaths: [
+                  helpers.root('src'),
+                  helpers.root('node_modules'),
+                ],
+              },
+            },
+          ]
+        },
 
         /*
-         * to string and css loader support for *.css files
+         * To string and css loader support for *.css files
          * Returns file content as string
          *
+         * See: https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
+         * See: https://github.com/angular/angular/issues/11580
+         * See: https://github.com/gajus/to-string-loader
+         * See: https://github.com/webpack/css-loader
          */
         {
           test: /\.css$/,
@@ -147,12 +169,31 @@ module.exports = function (options) {
           exclude: [helpers.root('src/index.html')]
         },
 
-        /* File loader for supporting images, for example, in CSS files.
+
+        /**
+         * Url loader support for png|jpg|gif
+         *
+         * See: https://www.npmjs.com/package/url-loader
          */
         {
-          test: /\.(jpg|png|gif)$/,
-          use: 'file-loader'
+          test: /\.(png|jpg|gif)$/,
+          use: "url?limit=50000&name=[path][name].[ext]"
         },
+
+        /**
+         * Font loader support for fonts necesary for FontAwesome
+         * Fonts handled by next 2 loaders are ttf|eot|otf|svg|woff|woff2
+         *
+         * See: https://www.npmjs.com/package/url-loader
+         */
+        {
+          test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
+          use: "url-loader?limit=10000&name=fonts/[name].[ext]"
+        },
+        {
+          test: /\.(ttf|eot|otf|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: "file-loader?name=fonts/[name].[ext]"
+        }
 
       ],
 
@@ -192,34 +233,6 @@ module.exports = function (options) {
       /**
        * Plugin: ContextReplacementPlugin
        * Description: Provides context to Angular's use of System.import
-      /**
-      * Scss loader support for *.scss files.
-      *
-      * See: https://github.com/jtangelder/sass-loader
-      */
-      {
-        test: /\.scss$/,
-        loaders: [
-          // ExtractTextPlugin.extract("style", "css?sourceMap"),
-          'to-string-loader',
-          'css-loader',
-          'resolve-url-loader',
-          'sass-loader' +
-          '?sourceMap&' +
-          'outputStyle=expanded&' +
-          'root=' + helpers.root('src') + '&' +
-          '&includePaths[]' + helpers.root('node_modules') + '&' +
-          '&includePaths[]' + helpers.root('src')
-        ]
-      },
-      /*
-       * To string and css loader support for *.css files
-       * Returns file content as string
-       *
-       * See: https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
-       * See: https://github.com/angular/angular/issues/11580
-       * See: https://github.com/gajus/to-string-loader
-       * See: https://github.com/webpack/css-loader
        */
       new ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
@@ -242,32 +255,6 @@ module.exports = function (options) {
         { from: 'src/assets', to: 'assets' },
         { from: 'src/meta'}
       ]),
-
-      /**
-      * Url loader support for png|jpg|gif
-      *
-      * See: https://www.npmjs.com/package/url-loader
-      */
-      {
-        test: /\.(png|jpg|gif)$/,
-        loader: "url?limit=50000&name=[path][name].[ext]"
-      },
-
-      /**
-       * Font loader support for fonts necesary for FontAwesome
-       * Fonts handled by next 2 loaders are ttf|eot|otf|svg|woff|woff2
-       *
-       * See: https://www.npmjs.com/package/url-loader
-       */
-      {
-        test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url-loader?limit=10000&name=fonts/[name].[ext]"
-      },
-      {
-        test: /\.(ttf|eot|otf|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "file-loader?name=fonts/[name].[ext]"
-      }
-    ]
 
       /*
        * Plugin: HtmlWebpackPlugin
@@ -350,6 +337,21 @@ module.exports = function (options) {
         /facade(\\|\/)math/,
         helpers.root('node_modules/@angular/core/src/facade/math.js')
       ),
+
+      new OfflinePlugin(),
+
+      /**
+       * Plugin: WebpackBuildNotifierPlugin
+       * Description: Desk notifications in upper right corner of screen
+       *
+       * See: https://www.npmjs.com/package/webpack-build-notifier
+       */
+      new WebpackBuildNotifierPlugin({
+        title: 'TAO WEB'
+        // logo: 'public/dist/img/favicon.ico'
+      }),
+
+      new ProgressBarPlugin()
     ],
 
     /*
@@ -369,18 +371,4 @@ module.exports = function (options) {
 
   };
 }
-    new OfflinePlugin(),
 
-    /**
-     * Plugin: WebpackBuildNotifierPlugin
-     * Description: Desk notifications in upper right corner of screen
-     *
-     * See: https://www.npmjs.com/package/webpack-build-notifier
-     */
-    new WebpackBuildNotifierPlugin({
-      title: 'TAO WEB'
-      // logo: 'public/dist/img/favicon.ico'
-    }),
-
-    new ProgressBarPlugin()
-  ],
