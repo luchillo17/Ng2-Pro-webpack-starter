@@ -21,9 +21,9 @@ import { XLarge } from './x-large';
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [ ],
   // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ './home.style.scss' ],
+  styleUrls: [ './home.component.scss' ],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: './home.template.html'
+  templateUrl: './home.component.html'
 })
 export class Home {
   // Set our default values
